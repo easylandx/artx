@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Unbother — Reclaim Your Peace</title>
+<meta name="description" content="The calm way to detach from LinkedIn overload and move forward with your real life.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --forest:#2E5A4B;
+  --forest-deep:#1F3E33;
+  --sage:#B5E8D5;
+  --sage-dim:#E4F8F0;
+  --beige:#FAF9F6;
+  --beige-warm:#F2F0EA;
+  --gold:#FFEB99;
+  --ink:#1A2E27;
+  --line: rgba(46,90,75,0.14);
+  --shadow: 0 20px 50px -20px rgba(46,90,75,0.25);
+  --serif: 'Fraunces', serif;
+  --sans: 'Work Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--beige);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+}
+
+a{color:inherit; text-decoration:none;}
+img,svg{display:block; max-width:100%;}
+button{font-family:inherit; border:none; cursor:pointer;}
+
+.wrap{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- utility type ---------- */
+.eyebrow{
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  opacity:0.72;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:"";
+  width:22px; height:1px;
+  background: var(--forest);
+  opacity:0.5;
+  display:inline-block;
+}
+
+h1,h2,h3{
+  font-family: var(--serif);
+  font-weight:500;
+  color: var(--forest-deep);
+  line-height:1.05;
+  letter-spacing:-0.01em;
+}
+
+.section-head{
+  max-width:640px;
+  margin-bottom:56px;
+}
+.section-head h2{
+  font-size: clamp(30px, 4vw, 44px);
+  margin-top:14px;
+}
+.section-head p{
+  margin-top:16px;
+  font-size:17px;
+  line-height:1.6;
+  color: rgba(18,36,28,0.68);
+}
+
+/* ---------- nav ---------- */
+header.nav{
+  position: sticky;
+  top:0;
+  z-index: 50;
+  background: rgba(250,249,246,0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 18px 32px;
+  max-width:1180px;
+  margin:0 auto;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family: var(--serif);
+  font-size:19px;
+  font-weight:600;
+  color: var(--forest-deep);
+}
+.logo .dot{
+  width:10px; height:10px; border-radius:50%;
+  background: var(--forest);
+  position:relative;
+}
+.logo .dot::after{
+  content:"";
+  position:absolute; inset:-5px;
+  border-radius:50%;
+  border:1px solid var(--gold);
+}
+.nav-links{
+  display:flex;
+  gap:34px;
+  font-size:14px;
+  color: var(--forest-deep);
+  opacity:0.82;
+}
+.nav-links a:hover{ opacity:1; }
+.nav-cta{
+  font-size:14px;
+  font-weight:600;
+  padding:10px 20px;
+  border-radius:30px;
+  background: var(--forest);
+  color: var(--beige);
+}
+.nav-cta:hover{ background: var(--forest-deep); }
+@media (max-width: 800px){ .nav-links{display:none;} }
+
+/* ---------- hero ---------- */
+.hero{
+  position: relative;
+  padding: 90px 0 40px;
+  background:
+    radial-gradient(60% 50% at 85% 10%, rgba(168,196,178,0.55), transparent 60%),
+    linear-gradient(160deg, var(--beige) 0%, var(--beige-warm) 46%, var(--sage-dim) 100%);
+  overflow:hidden;
+}
+.hero::before{
+  /* subtle grain/texture */
+  content:"";
+  position:absolute; inset:0;
+  background-image: radial-gradient(rgba(46,90,75,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity:0.5;
+  pointer-events:none;
+}
+.hero-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap:40px;
+  align-items:center;
+}
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns:1fr; }
+}
+
+.hero-copy .eyebrow{ margin-bottom:22px; }
+
+.hero h1{
+  font-size: clamp(42px, 6.4vw, 76px);
+  color: var(--forest-deep);
+}
+.hero h1 em{
+  font-style: italic;
+  font-weight:400;
+  color: var(--forest);
+}
+.hero .sub{
+  margin-top:22px;
+  font-size:18px;
+  line-height:1.65;
+  max-width:480px;
+  color: rgba(18,36,28,0.72);
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:16px 28px;
+  border-radius:34px;
+  font-size:15px;
+  font-weight:600;
+  background: var(--forest);
+  color: var(--beige);
+  box-shadow: var(--shadow);
+  transition: transform .25s ease, background .25s ease;
+}
+.btn:hover{ transform: translateY(-2px); background: var(--forest-deep); }
+.btn.ghost{
+  background: transparent;
+  color: var(--forest-deep);
+  border: 1px solid var(--forest);
+  box-shadow:none;
+}
+.btn.ghost:hover{ background: rgba(46,90,75,0.06); }
+.btn.small{ padding:11px 20px; font-size:13px; }
+
+.hero-actions{
+  margin-top:34px;
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.hero-note{
+  font-family: var(--mono);
+  font-size:12px;
+  color: rgba(18,36,28,0.55);
+  margin-top:18px;
+}
+
+/* --- signature visual: the noise-to-calm cloud --- */
+.declutter{
+  position:relative;
+  height: 460px;
+}
+.declutter .path-figure{
+  position:absolute;
+  inset:0;
+}
+.chip{
+  position:absolute;
+  font-family: var(--mono);
+  font-size:12px;
+  padding:9px 14px;
+  border-radius:20px;
+  background: rgba(255,255,255,0.75);
+  border:1px solid rgba(46,90,75,0.16);
+  color: var(--forest-deep);
+  white-space:nowrap;
+  box-shadow: 0 8px 20px -12px rgba(46,90,75,0.35);
+  transition: opacity 1.4s ease, transform 1.4s ease, filter 1.4s ease;
+}
+.calm-dot{
+  position:absolute;
+  border-radius:50%;
+  background: var(--sage);
+  opacity:0;
+  transition: opacity 1.6s ease 0.3s, transform 1.6s ease 0.3s;
+}
+.declutter.settled .chip{
+  opacity:0;
+  transform: scale(0.6) translateY(14px);
+  filter: blur(3px);
+}
+.declutter.settled .calm-dot{
+  opacity:1;
+  transform: scale(1);
+}
+.declutter-caption{
+  position:absolute;
+  bottom:-6px; left:0; right:0;
+  text-align:center;
+  font-family: var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  color: var(--forest);
+  opacity:0.65;
+}
+
+/* ---------- challenge ---------- */
+.challenge{
+  padding: 110px 0 90px;
+  background: var(--forest-deep);
+  color: var(--beige);
+  position:relative;
+}
+.challenge .eyebrow{ color: var(--sage); opacity:1; }
+.challenge .eyebrow::before{ background: var(--sage); opacity:0.8;}
+.challenge .section-head h2{ color: var(--beige); }
+.challenge .section-head p{ color: rgba(250,249,246,0.68); }
+
+.noise-list{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top:1px solid rgba(250,249,246,0.16);
+}
+.noise-list div{
+  padding:20px 6px;
+  border-bottom:1px solid rgba(250,249,246,0.16);
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight:400;
+  color: rgba(250,249,246,0.85);
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+}
+.noise-list div span{
+  font-family: var(--mono);
+  font-size:12px;
+  color: var(--sage);
+  opacity:0.7;
+}
+.noise-list div:nth-child(odd){ border-right:1px solid rgba(250,249,246,0.16); padding-right:24px; }
+.noise-list div:nth-child(even){ padding-left:24px; }
+@media (max-width: 700px){
+  .noise-list{ grid-template-columns:1fr; }
+  .noise-list div:nth-child(odd){ border-right:none; padding-right:6px;}
+  .noise-list div:nth-child(even){ padding-left:6px;}
+}
+
+.challenge-close{
+  margin-top:48px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  color: var(--sage-dim);
+}
+
+/* ---------- filter grid ---------- */
+.filters{
+  padding: 110px 0;
+  background: var(--beige);
+}
+.filter-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:1px;
+  background: var(--line);
+  border:1px solid var(--line);
+}
+.filter-card{
+  background: var(--beige);
+  padding:30px 26px;
+  min-height:150px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition: background .25s ease;
+}
+.filter-card:hover{ background: var(--beige-warm); }
+.filter-card .x{
+  font-family: var(--mono);
+  font-size:13px;
+  color: var(--forest);
+  opacity:0.5;
+}
+.filter-card p{
+  font-size:16px;
+  line-height:1.4;
+  color: var(--forest-deep);
+  margin-top:20px;
+}
+@media (max-width: 800px){ .filter-grid{ grid-template-columns: repeat(2,1fr);} }
+@media (max-width: 520px){ .filter-grid{ grid-template-columns: 1fr;} }
+
+.filters-tail{
+  margin-top:40px;
+  font-family: var(--serif);
+  font-size:20px;
+  color: var(--forest-deep);
+  max-width:520px;
+}
+.filters-tail strong{ color: var(--forest); }
+
+/* ---------- how it works ---------- */
+.how{
+  padding:110px 0;
+  background: var(--sage-dim);
+  position:relative;
+}
+.steps{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:36px;
+}
+.step{
+  background: var(--beige);
+  border-radius:18px;
+  padding:36px 30px;
+  border:1px solid var(--line);
+  position:relative;
+}
+.step .num{
+  font-family: var(--mono);
+  font-size:13px;
+  color: var(--forest);
+  opacity:0.6;
+}
+.step h3{
+  font-size:22px;
+  margin-top:18px;
+  font-weight:500;
+}
+.step p{
+  margin-top:12px;
+  font-size:15px;
+  line-height:1.6;
+  color: rgba(18,36,28,0.68);
+}
+.step-line{
+  position:absolute;
+  top:44px; right:-18px;
+  width:36px; height:1px;
+  background: var(--forest);
+  opacity:0.35;
+}
+.step:last-child .step-line{ display:none; }
+@media (max-width: 860px){
+  .steps{ grid-template-columns:1fr; }
+  .step-line{ display:none; }
+}
+
+/* ---------- features ---------- */
+.features{
+  padding:110px 0;
+  background: var(--beige);
+}
+.feature-list{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px 40px;
+}
+.feature{
+  display:flex;
+  gap:18px;
+  padding:26px 0;
+  border-top:1px solid var(--line);
+}
+.feature .mark{
+  font-family: var(--serif);
+  font-style:italic;
+  font-size:26px;
+  color: var(--gold);
+  line-height:1;
+  flex-shrink:0;
+  width:34px;
+}
+.feature h3{
+  font-size:18px;
+  font-weight:600;
+  font-family: var(--sans);
+  color: var(--forest-deep);
+}
+.feature p{
+  margin-top:8px;
+  font-size:14.5px;
+  line-height:1.6;
+  color: rgba(18,36,28,0.66);
+}
+@media (max-width: 760px){ .feature-list{ grid-template-columns:1fr; } }
+
+/* ---------- peace score panel ---------- */
+.peace-panel{
+  margin-top:70px;
+  background: var(--forest);
+  border-radius:22px;
+  padding:44px;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:30px;
+  align-items:center;
+  color: var(--beige);
+}
+.peace-panel .label{
+  font-family: var(--mono);
+  font-size:12px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color: var(--sage);
+}
+.peace-panel h3{
+  color: var(--beige);
+  font-size: clamp(24px,3vw,32px);
+  margin-top:10px;
+  max-width:420px;
+}
+.peace-score{
+  font-family: var(--mono);
+  font-size: 56px;
+  font-weight:500;
+  color: var(--gold);
+  text-align:right;
+  line-height:1;
+}
+.peace-score span{
+  display:block;
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color: var(--sage);
+  margin-top:10px;
+  text-align:right;
+}
+@media (max-width: 640px){
+  .peace-panel{ grid-template-columns:1fr; }
+  .peace-score, .peace-score span{ text-align:left; }
+}
+
+/* ---------- benefits ---------- */
+.benefits{
+  padding:110px 0;
+  background: var(--forest-deep);
+  color: var(--beige);
+}
+.benefits .eyebrow{ color: var(--sage); opacity:1; }
+.benefits .eyebrow::before{ background: var(--sage); opacity:0.8; }
+.benefits .section-head h2{ color: var(--beige); }
+.benefits .section-head p{ color: rgba(250,249,246,0.68); }
+
+.benefit-row{
+  display:flex;
+  flex-direction:column;
+}
+.benefit-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  padding:26px 0;
+  border-top: 1px solid rgba(250,249,246,0.16);
+  font-family: var(--serif);
+  font-size: clamp(19px,2.4vw,26px);
+  font-weight:400;
+  color: rgba(250,249,246,0.92);
+}
+.benefit-row .benefit-item:last-child{ border-bottom: 1px solid rgba(250,249,246,0.16); }
+.benefit-item .idx{
+  font-family: var(--mono);
+  font-size:13px;
+  color: var(--sage);
+  opacity:0.8;
+}
+
+/* ---------- testimonials ---------- */
+.testimonials{
+  padding:110px 0;
+  background: var(--beige);
+}
+.t-grid{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:26px;
+}
+.t-card{
+  background: var(--beige-warm);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:32px 28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:220px;
+}
+.t-quote{
+  font-family: var(--serif);
+  font-size:19px;
+  line-height:1.5;
+  color: var(--forest-deep);
+}
+.t-who{
+  margin-top:22px;
+  font-family: var(--mono);
+  font-size:12px;
+  color: var(--forest);
+  opacity:0.7;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+@media (max-width: 860px){ .t-grid{ grid-template-columns:1fr; } }
+
+/* ---------- pricing ---------- */
+.pricing{
+  padding:110px 0;
+  background: var(--sage-dim);
+}
+.price-grid{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:26px;
+}
+.price-card{
+  background: var(--beige);
+  border-radius:20px;
+  padding:36px 30px;
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+}
+.price-card.highlight{
+  background: var(--forest);
+  color: var(--beige);
+  transform: translateY(-14px);
+  box-shadow: var(--shadow);
+}
+.price-card .plan{
+  font-family: var(--mono);
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  opacity:0.7;
+}
+.price-card .amount{
+  font-family: var(--serif);
+  font-size:44px;
+  margin-top:14px;
+  color: var(--forest-deep);
+}
+.price-card.highlight .amount{ color: var(--beige); }
+.price-card .amount sub{
+  font-family: var(--sans);
+  font-size:13px;
+  font-weight:400;
+  opacity:0.65;
+}
+.price-card ul{
+  list-style:none;
+  margin-top:22px;
+  flex-grow:1;
+}
+.price-card li{
+  font-size:14.5px;
+  padding:9px 0;
+  border-top:1px solid var(--line);
+  opacity:0.85;
+}
+.price-card.highlight li{ border-top:1px solid rgba(250,249,246,0.2); }
+.price-card .btn{
+  margin-top:26px;
+  width:100%;
+  justify-content:center;
+}
+.price-card.highlight .btn{
+  background: var(--beige);
+  color: var(--forest-deep);
+}
+@media (max-width: 860px){
+  .price-grid{ grid-template-columns:1fr; }
+  .price-card.highlight{ transform:none; }
+}
+
+/* ---------- final cta ---------- */
+.final-cta{
+  padding:130px 0;
+  text-align:center;
+  background:
+    radial-gradient(60% 80% at 50% 0%, rgba(168,196,178,0.5), transparent 65%),
+    var(--beige);
+}
+.final-cta h2{
+  font-size: clamp(32px,5vw,54px);
+  max-width:640px;
+  margin:0 auto;
+}
+.final-cta h2 em{ font-style:italic; color:var(--forest); font-weight:400; }
+.final-cta p.lead{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size:20px;
+  color: rgba(18,36,28,0.65);
+  margin-top:18px;
+}
+.final-cta .btn{ margin-top:38px; }
+
+/* ---------- footer ---------- */
+footer{
+  padding:50px 0 40px;
+  background: var(--forest-deep);
+  color: rgba(250,249,246,0.7);
+}
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+}
+.footer-brand{
+  font-family: var(--serif);
+  font-size:17px;
+  color: var(--beige);
+}
+.footer-note{
+  font-family: var(--mono);
+  font-size:12px;
+  color: rgba(250,249,246,0.5);
+}
+.footer-credit{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 16px;
+  border-radius:24px;
+  border:1px solid rgba(250,249,246,0.25);
+  font-family: var(--mono);
+  font-size:12px;
+  color: var(--sage-dim);
+  transition: background .2s ease, border-color .2s ease;
+}
+.footer-credit:hover{ background: rgba(250,249,246,0.08); border-color: rgba(250,249,246,0.5); }
+
+/* reveal on scroll */
+.reveal{
+  opacity:0;
+  transform: translateY(18px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.in{ opacity:1; transform:none; }
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span> Unbother</div>
+    <nav class="nav-links">
+      <a href="#challenge">The Noise</a>
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a href="#pricing" class="nav-cta">Start Free</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">LinkedIn Unbother</div>
+      <h1>Stop stressing<br>about <em>LinkedIn.</em></h1>
+      <p class="sub">Reclaim your time and peace of mind. We help you ignore the noise, humblebrags, and endless performance — so you can focus on what truly matters.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn">Start My Peaceful Unbothering</a>
+        <a href="#how" class="btn ghost">See how it works</a>
+      </div>
+      <div class="hero-note">No credit card. No new tabs to manage. Just quiet.</div>
+    </div>
+
+    <div class="declutter" id="declutter">
+      <div class="path-figure" id="chipField"></div>
+      <div class="declutter-caption">watch the feed settle</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section class="challenge" id="challenge">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Challenge</div>
+      <h2>Tired of scrolling through<br>the same performance?</h2>
+      <p>Every feed refresh brings another round of noise dressed up as insight. You know it when you see it.</p>
+    </div>
+    <div class="noise-list reveal">
+      <div><span>01</span> Humblebrags disguised as life lessons</div>
+      <div><span>02</span> Overly dramatic corporate poetry ("Broetry")</div>
+      <div><span>03</span> Emotional CEO storytelling</div>
+      <div><span>04</span> Endless "Congratulations!" comment threads</div>
+      <div><span>05</span> Gurus sharing their morning routines</div>
+      <div><span>06</span> Work anniversaries and humble promotions</div>
+      <div><span>07</span> Sports spam during work hours</div>
+      <div><span>08</span> Personal branding selfies</div>
+      <div><span>09</span> Influencer-style motivational content</div>
+      <div><span>10</span> People who never reply to messages</div>
+    </div>
+    <p class="challenge-close reveal">We help you gently ignore all of it.</p>
+  </div>
+</section>
+
+<!-- WHAT WE FILTER -->
+<section class="filters">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Filter Out</div>
+      <h2>Only real, valuable, human-centered content gets through.</h2>
+    </div>
+    <div class="filter-grid reveal">
+      <div class="filter-card"><span class="x">removed</span><p>Likes &amp; reposts chasing</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Humblebrag posts</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Double-spaced corporate wisdom</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>"Excited to announce…" announcements</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Fake congratulations culture</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Personal branding performances</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Non-responsive connections</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Motivational guru content</p></div>
+      <div class="filter-card"><span class="x">removed</span><p>Everything that feels inauthentic</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How It Works</div>
+      <h2>Three simple steps to a quieter feed.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="num">Step 01</div>
+        <h3>Connect or choose manual mode</h3>
+        <p>Link your account or use it without connecting — your call, your pace.</p>
+        <span class="step-line"></span>
+      </div>
+      <div class="step">
+        <div class="num">Step 02</div>
+        <h3>Activate Unbother Mode</h3>
+        <p>Our smart system hides the noise and highlights what's genuinely useful.</p>
+        <span class="step-line"></span>
+      </div>
+      <div class="step">
+        <div class="num">Step 03</div>
+        <h3>Reclaim your focus</h3>
+        <p>Spend less time scrolling and more time on meaningful work and life.</p>
+        <span class="step-line"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Key Features</div>
+      <h2>Built for calm, not another dashboard to manage.</h2>
+    </div>
+    <div class="feature-list reveal">
+      <div class="feature">
+        <div class="mark">01</div>
+        <div><h3>Humblebrag Blocker</h3><p>Peacefully removes show-off content before it reaches your feed.</p></div>
+      </div>
+      <div class="feature">
+        <div class="mark">02</div>
+        <div><h3>Drama Filter</h3><p>Reduces overly emotional corporate storytelling and Broetry.</p></div>
+      </div>
+      <div class="feature">
+        <div class="mark">03</div>
+        <div><h3>Authentic Mode</h3><p>Prioritizes real value and genuine human connection.</p></div>
+      </div>
+      <div class="feature">
+        <div class="mark">04</div>
+        <div><h3>Daily Peace Score</h3><p>Track how much calmer your feed feels, day by day.</p></div>
+      </div>
+      <div class="feature">
+        <div class="mark">05</div>
+        <div><h3>One-Click Snooze</h3><p>Instantly hide triggering or low-value posts, no explanation needed.</p></div>
+      </div>
+      <div class="feature">
+        <div class="mark">06</div>
+        <div><h3>Weekly Freedom Report</h3><p>"You avoided 612 unnecessary posts this week" — proof it's working.</p></div>
+      </div>
+    </div>
+
+    <div class="peace-panel reveal">
+      <div>
+        <div class="label">This week's freedom report</div>
+        <h3>You avoided unnecessary posts, and kept the focus on what matters.</h3>
+      </div>
+      <div>
+        <div class="peace-score" data-target="612">0</div>
+        <span>posts avoided</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Benefits</div>
+      <h2>What changes when the noise goes quiet.</h2>
+    </div>
+    <div class="benefit-row reveal">
+      <div class="benefit-item"><span>Reduced daily stress from endless notifications</span><span class="idx">A</span></div>
+      <div class="benefit-item"><span>More time for actual work and personal life</span><span class="idx">B</span></div>
+      <div class="benefit-item"><span>A calmer, more intentional mindset</span><span class="idx">C</span></div>
+      <div class="benefit-item"><span>Freedom from comparison culture</span><span class="idx">D</span></div>
+      <div class="benefit-item"><span>Focus on genuine opportunities only</span><span class="idx">E</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Testimonials</div>
+      <h2>Calm, from people who work in the noise.</h2>
+    </div>
+    <div class="t-grid reveal">
+      <div class="t-card">
+        <p class="t-quote">"I finally feel free from the pressure. My focus and energy are back."</p>
+        <p class="t-who">Marketing Director</p>
+      </div>
+      <div class="t-card">
+        <p class="t-quote">"No more doomscrolling. This changed how I use LinkedIn for the better."</p>
+        <p class="t-who">Founder</p>
+      </div>
+      <div class="t-card">
+        <p class="t-quote">"Highly recommend for anyone tired of the noise."</p>
+        <p class="t-who">Product Manager</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Pricing</div>
+      <h2>Choose your pace of calm.</h2>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price-card">
+        <div class="plan">Free Plan</div>
+        <div class="amount">$0</div>
+        <ul>
+          <li>Basic filtering</li>
+          <li>Core peace tools</li>
+          <li>Manual mode</li>
+        </ul>
+        <a href="#" class="btn ghost">Get started</a>
+      </div>
+      <div class="price-card highlight">
+        <div class="plan">Unbother Plus</div>
+        <div class="amount">$5 <sub>/ month</sub></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li>Advanced filters</li>
+          <li>Weekly freedom reports</li>
+        </ul>
+        <a href="#" class="btn">Choose Plus</a>
+      </div>
+      <div class="price-card">
+        <div class="plan">Lifetime Calm</div>
+        <div class="amount">One-time</div>
+        <ul>
+          <li>Unlimited access forever</li>
+          <li>All future filters</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="btn ghost">Get lifetime access</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="wrap reveal">
+    <h2>You don't need more activity.<br>You need more <em>clarity.</em></h2>
+    <p class="lead">Choose peace. Unbother yourself today.</p>
+    <a href="#pricing" class="btn">Get Started — It's Free</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <div class="footer-brand">Unbother</div>
+      <div class="footer-note" style="margin-top:6px;">We respect your privacy. No selling data. Just calm.</div>
+    </div>
+    <a class="footer-credit" href="https://easypagex.github.com" target="_blank" rel="noopener">Built with easypagex →</a>
+  </div>
+</footer>
+
+<script>
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+// Peace score counter
+const scoreEl = document.querySelector('.peace-score');
+const scoreObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const target = parseInt(scoreEl.dataset.target,10);
+      let current = 0;
+      const step = Math.max(1, Math.round(target/60));
+      const timer = setInterval(()=>{
+        current += step;
+        if(current >= target){ current = target; clearInterval(timer); }
+        scoreEl.textContent = current;
+      }, 20);
+      scoreObserver.unobserve(scoreEl);
+    }
+  });
+},{threshold:0.4});
+if(scoreEl) scoreObserver.observe(scoreEl);
+
+// Signature declutter visual: noisy chip cloud -> calm dots
+const chipLabels = [
+  "Excited to announce…",
+  "Humblebrag",
+  "Broetry",
+  "Congrats! 🎉",
+  "5am club",
+  "Work anniversary",
+  "#blessed",
+  "Personal brand",
+  "Guru tip #47",
+  "Thoughts?",
+  "Grateful for this journey",
+  "So honored to share…",
+  "Hustle harder",
+  "Thread 🧵 1/12",
+  "Unpopular opinion:",
+  "Big announcement soon",
+  "My morning routine",
+  "Just crushed it",
+  "Blessed & grinding",
+  "Agree? 👇"
+];
+const field = document.getElementById('chipField');
+const declutter = document.getElementById('declutter');
+const rand = (min,max)=> Math.random()*(max-min)+min;
+
+function buildField(){
+  field.innerHTML = '';
+  const w = declutter.clientWidth, h = declutter.clientHeight;
+
+  const shuffled = [...chipLabels].sort(()=> Math.random()-0.5);
+  const picks = shuffled.slice(0, 10);
+
+  picks.forEach((label)=>{
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = label;
+    const x = rand(0, Math.max(0,w-140));
+    const y = rand(0, Math.max(0,h-120));
+    chip.style.left = x+'px';
+    chip.style.top = y+'px';
+    chip.style.transform = `rotate(${rand(-8,8)}deg)`;
+    field.appendChild(chip);
+
+    const dot = document.createElement('div');
+    dot.className = 'calm-dot';
+    const size = rand(10,26);
+    dot.style.width = size+'px';
+    dot.style.height = size+'px';
+    dot.style.left = (x + rand(-20,20))+'px';
+    dot.style.top = (y + rand(-20,20))+'px';
+    dot.style.transform = 'scale(0.4)';
+    field.appendChild(dot);
+  });
+}
+buildField();
+window.addEventListener('resize', buildField);
+
+let declutterLoop = null;
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function startDeclutterLoop(){
+  if(declutterLoop || prefersReducedMotion) return;
+  declutterLoop = setInterval(()=>{
+    const isSettled = declutter.classList.contains('settled');
+    if(isSettled){
+      buildField();
+      // force reflow so the new chips start from the "noisy" state before transitioning
+      void field.offsetWidth;
+      declutter.classList.remove('settled');
+    } else {
+      declutter.classList.add('settled');
+    }
+  }, 2600);
+}
+function stopDeclutterLoop(){
+  clearInterval(declutterLoop);
+  declutterLoop = null;
+}
+
+const declutterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      declutter.classList.remove('settled');
+      buildField();
+      setTimeout(()=> declutter.classList.add('settled'), 600);
+      startDeclutterLoop();
+    } else {
+      stopDeclutterLoop();
+    }
+  });
+},{threshold:0.4});
+declutterObserver.observe(declutter);
+</script>
+
+</body>
+</html>
