@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hour the Lanterns Bloom — Talia Fenmoor | Tideglass School</title>
+<meta name="description" content="An interactive digital art piece by Talia Fenmoor. Light the lanterns, watch the tide catch their glow. Tideglass School.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-1:#050b1a;
+    --night-2:#0a1730;
+    --night-3:#0e2140;
+    --blue:#2F8CFF;
+    --blue-soft:#7fb4ff;
+    --yellow:#FFD23F;
+    --yellow-soft:#ffe28a;
+    --green:#2EE6A6;
+    --green-soft:#8ff5d3;
+    --ink:#EAF2FF;
+    --ink-dim:#9db2d6;
+    --line:rgba(234,242,255,0.14);
+    --paper:#f2efe4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--night-1);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:0.01em;
+  }
+  em{font-style:italic;font-weight:400;}
+  a{color:inherit;}
+  ::selection{background:var(--yellow);color:var(--night-1);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  :focus-visible{outline:2px solid var(--yellow);outline-offset:3px;}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;
+    background:linear-gradient(180deg,rgba(5,11,26,0.9),rgba(5,11,26,0));
+    backdrop-filter:blur(2px);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.05rem;letter-spacing:0.02em;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px var(--yellow);}
+  .navlinks{display:flex;gap:26px;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;}
+  .navlinks a{text-decoration:none;color:var(--ink-dim);transition:color .25s;}
+  .navlinks a:hover{color:var(--yellow-soft);}
+  @media (max-width:720px){.navlinks{display:none;}}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;height:100vh;min-height:640px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;
+  }
+  .hero-sky{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(47,140,255,0.18), transparent 60%),
+      linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 55%, var(--night-3) 100%);
+  }
+  .stars{position:absolute;inset:0;opacity:0.6;}
+  .hero-inner{position:relative;z-index:2;}
+  .eyebrow{
+    font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;
+    color:var(--green-soft);margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,7vw,5.2rem);
+    line-height:1.02;margin:0 0 20px;
+    background:linear-gradient(100deg,var(--blue-soft),var(--yellow) 45%,var(--green-soft) 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 26px rgba(255,210,63,0.18));
+  }
+  .hero p.sub{
+    max-width:540px;margin:0 auto;color:var(--ink-dim);
+    font-size:1.05rem;line-height:1.7;
+  }
+  .hero .byline{margin-top:26px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink);font-size:1.1rem;}
+  .scrolldown{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-dim);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scrolldown .stem{width:1px;height:34px;background:linear-gradient(var(--blue-soft),transparent);animation:stemflow 1.8s ease-in-out infinite;}
+  @keyframes stemflow{0%,100%{opacity:.3}50%{opacity:1}}
+
+  /* ---------- section shell ---------- */
+  section{position:relative;padding:110px 0;}
+  .section-head{max-width:640px;margin:0 0 52px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.7rem);margin:0 0 16px;}
+  .section-head p{color:var(--ink-dim);line-height:1.75;font-size:1rem;margin:0;}
+  .divider{height:1px;background:var(--line);border:none;margin:0;}
+
+  /* ---------- Bloom Field (signature interactive) ---------- */
+  .field-section{background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(46,230,166,0.06),transparent 60%),var(--night-2);}
+  .field-stage{
+    position:relative;
+    height:520px;
+    border-radius:18px;
+    overflow:hidden;
+    background:linear-gradient(180deg, #081226 0%, #0a1a34 62%, #0d2a45 100%);
+    border:1px solid var(--line);
+  }
+  .field-stage svg{width:100%;height:100%;display:block;}
+  .lantern{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:filter .3s;}
+  .lantern:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:8px;}
+  .lantern .body{transition:opacity .4s;}
+  .lantern .glow{opacity:0;transition:opacity .5s;}
+  .lantern.bloomed .glow{opacity:1;}
+  .lantern.bloomed{filter:drop-shadow(0 0 14px currentColor);}
+  .tide{opacity:0.85;}
+  .field-hint{
+    position:absolute;left:18px;bottom:16px;
+    font-size:0.78rem;color:var(--ink-dim);letter-spacing:0.03em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .field-hud{
+    position:absolute;right:18px;top:16px;
+    font-family:'Fraunces',serif;font-size:0.95rem;
+    background:rgba(5,11,26,0.55);border:1px solid var(--line);
+    padding:8px 14px;border-radius:999px;backdrop-filter:blur(4px);
+  }
+  .field-hud b{color:var(--yellow);font-weight:600;}
+  .field-controls{
+    display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;align-items:center;
+    font-size:0.85rem;color:var(--ink-dim);
+  }
+  .btn{
+    appearance:none;border:1px solid var(--line);background:transparent;color:var(--ink);
+    padding:11px 22px;border-radius:999px;font-family:'Jost',sans-serif;font-size:0.85rem;
+    letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all .25s;
+  }
+  .btn:hover{border-color:var(--yellow);color:var(--yellow);}
+  .btn.solid{background:var(--yellow);color:var(--night-1);border-color:var(--yellow);font-weight:500;}
+  .btn.solid:hover{background:var(--yellow-soft);color:var(--night-1);}
+
+  /* ---------- About / movement ---------- */
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:start;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid p{color:var(--ink-dim);line-height:1.85;margin:0 0 18px;font-size:1.02rem;}
+  .about-grid p b{color:var(--ink);font-weight:500;}
+  .quote-card{
+    border:1px solid var(--line);border-radius:14px;padding:30px 28px;
+    background:linear-gradient(160deg,rgba(47,140,255,0.07),rgba(46,230,166,0.05));
+  }
+  .quote-card q{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;line-height:1.5;color:var(--ink);}
+  .quote-card .attr{margin-top:16px;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--green-soft);}
+
+  .movement-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+  .tag{
+    font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;
+    border:1px solid var(--line);padding:7px 14px;border-radius:999px;color:var(--ink-dim);
+  }
+
+  /* ---------- Gallery ---------- */
+  .gallery-section{background:var(--night-1);}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.gallery-grid{grid-template-columns:1fr;}}
+  .plate{
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    background:var(--night-2);cursor:pointer;
+    transform:translateY(14px);opacity:0;transition:transform .7s ease, opacity .7s ease, border-color .3s;
+  }
+  .plate.in{transform:translateY(0);opacity:1;}
+  .plate:hover{border-color:var(--yellow);}
+  .plate .art{aspect-ratio:4/3;display:block;width:100%;}
+  .plate .cap{padding:16px 18px 20px;}
+  .plate .cap .no{font-size:0.72rem;letter-spacing:0.14em;color:var(--ink-dim);text-transform:uppercase;}
+  .plate .cap h3{margin:6px 0 4px;font-size:1.05rem;font-weight:500;}
+  .plate .cap .meta{font-size:0.8rem;color:var(--ink-dim);}
+
+  /* modal */
+  .modal-bg{
+    position:fixed;inset:0;background:rgba(3,7,16,0.86);z-index:100;
+    display:none;align-items:center;justify-content:center;padding:24px;
+    backdrop-filter:blur(6px);
+  }
+  .modal-bg.open{display:flex;}
+  .modal{
+    max-width:640px;width:100%;background:var(--night-2);border:1px solid var(--line);
+    border-radius:16px;overflow:hidden;
+  }
+  .modal .art{width:100%;aspect-ratio:4/3;display:block;}
+  .modal .body{padding:26px 28px 30px;}
+  .modal h3{margin:0 0 6px;font-size:1.4rem;}
+  .modal .meta{color:var(--ink-dim);font-size:0.85rem;margin-bottom:14px;}
+  .modal p{color:var(--ink-dim);line-height:1.7;font-size:0.96rem;margin:0 0 18px;}
+  .modal .close{float:right;cursor:pointer;color:var(--ink-dim);font-size:0.85rem;letter-spacing:0.05em;text-transform:uppercase;background:none;border:none;font-family:inherit;}
+  .modal .close:hover{color:var(--yellow);}
+
+  /* ---------- News ---------- */
+  .news-section{background:linear-gradient(180deg,var(--night-1),var(--night-2));}
+  .news-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;}
+  @media (max-width:860px){.news-grid{grid-template-columns:1fr;}}
+  .news-item{padding:24px 0;border-bottom:1px solid var(--line);}
+  .news-item:first-child{padding-top:0;}
+  .news-item .date{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-soft);}
+  .news-item h3{margin:8px 0 8px;font-size:1.2rem;font-weight:500;}
+  .news-item p{margin:0;color:var(--ink-dim);line-height:1.7;font-size:0.94rem;}
+  .news-side{
+    border:1px solid var(--line);border-radius:14px;padding:24px;
+    background:var(--night-2);height:fit-content;
+  }
+  .news-side h4{margin:0 0 14px;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-dim);}
+  .news-side ul{list-style:none;margin:0;padding:0;}
+  .news-side li{padding:10px 0;border-bottom:1px solid var(--line);font-size:0.9rem;}
+  .news-side li:last-child{border-bottom:none;}
+  .news-side .tick{color:var(--blue-soft);margin-right:6px;}
+
+  /* ---------- Advertisements ---------- */
+  .ads-section{background:var(--night-1);}
+  .ads-label{
+    font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-dim);
+    margin-bottom:22px;display:block;
+  }
+  .ads-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media (max-width:860px){.ads-grid{grid-template-columns:1fr;}}
+  .ad{
+    border:1px dashed var(--line);border-radius:14px;padding:24px;
+    position:relative;background:rgba(234,242,255,0.02);
+  }
+  .ad .adtag{
+    position:absolute;top:14px;right:14px;font-size:0.62rem;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--line);
+    padding:3px 8px;border-radius:999px;
+  }
+  .ad .adicon{width:40px;height:40px;margin-bottom:14px;}
+  .ad h4{margin:0 0 8px;font-size:1.05rem;font-weight:500;}
+  .ad p{margin:0 0 16px;color:var(--ink-dim);font-size:0.88rem;line-height:1.6;}
+  .ad .adlink{font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--yellow);text-decoration:none;}
+  .ad.blue .adicon path,.ad.blue .adicon circle,.ad.blue .adicon rect{stroke:var(--blue);}
+  .ad.yellow .adicon path,.ad.yellow .adicon circle,.ad.yellow .adicon rect{stroke:var(--yellow);}
+  .ad.green .adicon path,.ad.green .adicon circle,.ad.green .adicon rect{stroke:var(--green);}
+
+  /* ---------- Visit / CTA ---------- */
+  .visit-section{
+    background:linear-gradient(180deg,var(--night-2),var(--night-1));
+    text-align:center;
+  }
+  .visit-section h2{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 18px;}
+  .visit-section p{color:var(--ink-dim);max-width:520px;margin:0 auto 30px;line-height:1.7;}
+  .visit-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:56px 0 40px;background:var(--night-1);border-top:1px solid var(--line);
+  }
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  .foot-brand{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-dim);font-size:0.95rem;}
+  .foot-links{display:flex;gap:22px;font-size:0.82rem;color:var(--ink-dim);}
+  .foot-links a{text-decoration:none;}
+  .foot-links a:hover{color:var(--yellow);}
+  .easypagex-wrap{display:flex;justify-content:center;margin-top:44px;}
+  .easypagex-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:13px 26px;border-radius:999px;
+    background:linear-gradient(90deg,var(--blue),var(--green));
+    color:#04101f;font-weight:600;text-decoration:none;
+    font-family:'Jost',sans-serif;font-size:0.88rem;letter-spacing:0.04em;
+    box-shadow:0 8px 24px rgba(47,140,255,0.25);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .easypagex-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(46,230,166,0.32);}
+  .easypagex-btn svg{width:16px;height:16px;}
+
+  /* reveal utility */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> The Hour the Lanterns Bloom</div>
+  <div class="navlinks">
+    <a href="#field">Light the Lanterns</a>
+    <a href="#about">The Piece</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#news">News</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-sky"></div>
+  <svg class="stars" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="#EAF2FF">
+      <circle cx="80" cy="90" r="1.4" opacity="0.7"/><circle cx="220" cy="60" r="1" opacity="0.5"/>
+      <circle cx="360" cy="130" r="1.6" opacity="0.8"/><circle cx="500" cy="50" r="1" opacity="0.4"/>
+      <circle cx="640" cy="110" r="1.3" opacity="0.6"/><circle cx="780" cy="70" r="1" opacity="0.5"/>
+      <circle cx="920" cy="140" r="1.5" opacity="0.7"/><circle cx="1060" cy="90" r="1" opacity="0.5"/>
+      <circle cx="150" cy="220" r="1" opacity="0.4"/><circle cx="980" cy="230" r="1.2" opacity="0.5"/>
+      <circle cx="1150" cy="180" r="1" opacity="0.4"/><circle cx="40" cy="180" r="1.1" opacity="0.5"/>
+    </g>
+  </svg>
+  <div class="hero-inner wrap">
+    <div class="eyebrow">A Digital Art Piece · Tideglass School</div>
+    <h1>The Hour the<br>Lanterns Bloom</h1>
+    <p class="sub">Somewhere between low tide and lamplight, a field of paper lanterns waits to be woken. Touch one. Watch what the water does with the light.</p>
+    <div class="byline">by Talia Fenmoor</div>
+  </div>
+  <div class="scrolldown"><span>Scroll</span><span class="stem"></span></div>
+</header>
+
+<!-- ================= BLOOM FIELD (interactive) ================= -->
+<section id="field" class="field-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Interactive</div>
+      <h2>Light the lanterns</h2>
+      <p>Twelve lanterns rest on the tideglass shallows. Click or tap each one to bloom it — every lantern remembers whether it has caught the light. Bloom them all, and see what the shoreline does at the hour's end.</p>
+    </div>
+
+    <div class="field-stage reveal">
+      <div class="field-hud">Blooms tonight: <b id="bloomCount">0</b> / 12</div>
+      <div class="field-hint">✧ tap a lantern to bloom it</div>
+      <svg id="fieldSvg" viewBox="0 0 1100 520" preserveAspectRatio="xMidYMid meet" aria-label="An interactive field of twelve lanterns above dark tideglass water">
+        <defs>
+          <radialGradient id="glowBlue" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#7fb4ff" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#2F8CFF" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glowYellow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffe28a" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#FFD23F" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glowGreen" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#8ff5d3" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#2EE6A6" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0d2a45"/>
+            <stop offset="100%" stop-color="#081226"/>
+          </linearGradient>
+        </defs>
+
+        <!-- water -->
+        <rect x="0" y="360" width="1100" height="160" fill="url(#waterGrad)"/>
+        <path class="tide" d="M0,362 Q 55,352 110,362 T 220,362 T 330,362 T 440,362 T 550,362 T 660,362 T 770,362 T 880,362 T 990,362 T 1100,362" fill="none" stroke="rgba(127,180,255,0.25)" stroke-width="2"/>
+
+        <!-- lantern reflections group (mirrors) -->
+        <g id="reflections" transform="translate(0,724) scale(1,-1)" opacity="0.35"></g>
+
+        <!-- lanterns get injected here by JS -->
+        <g id="lanternsGroup"></g>
+      </svg>
+    </div>
+
+    <div class="field-controls">
+      <button class="btn solid" id="lightAllBtn" type="button">Bloom them all</button>
+      <button class="btn" id="resetBtn" type="button">Let the light fade</button>
+      <span id="fieldMsg"></span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================= ABOUT / MOVEMENT ================= -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow">The Piece</div>
+      <h2 style="font-size:clamp(1.9rem,4vw,2.5rem);margin:0 0 22px;">A shoreline that answers when it's touched</h2>
+      <p><b>The Hour the Lanterns Bloom</b> is a browser-based light piece: twelve procedural lanterns suspended over a bed of generated tideglass water. Each lantern is dormant until a visitor interacts with it, at which point it blooms — brightening, casting a reflection into the water below, and ringing a single soft tone tuned to its position in the field.</p>
+      <p>Fenmoor built the piece as a study in <b>held light</b> — the idea that a digital artwork can wait, patiently, for a viewer's hand before it becomes whole. No two visits bloom the same lanterns in the same order, and the piece never resets itself; it only fades when you ask it to.</p>
+      <p>The work is part of the artist's ongoing series exploring tide pools, glasswork, and the hour just after dusk when coastal towns light their first lamps — a recurring setting across Fenmoor's practice since her early sketchbooks.</p>
+    </div>
+    <div>
+      <div class="quote-card reveal">
+        <q>I wanted a piece that could only be finished by someone else's hand. The lanterns aren't lit for you — they're lit by you.</q>
+        <div class="attr">— Talia Fenmoor, artist statement</div>
+      </div>
+      <div class="reveal" style="margin-top:26px;">
+        <div class="eyebrow">Movement</div>
+        <h3 style="margin:8px 0 10px;font-size:1.3rem;">Tideglass School</h3>
+        <p style="color:var(--ink-dim);line-height:1.75;font-size:0.95rem;margin:0;">A loose cohort of digital artists working at the edge of coastline and code — pieces built from generated glass, water, and lamplight, defined by slow interactivity, soft procedural sound, and palettes drawn from dusk over harbor towns.</p>
+        <div class="movement-tags">
+          <span class="tag">Generative Light</span>
+          <span class="tag">Procedural Water</span>
+          <span class="tag">Web Audio Tones</span>
+          <span class="tag">Coastal Palette</span>
+          <span class="tag">Slow Interaction</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery" class="gallery-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">From the Series</div>
+      <h2>Studies in tideglass</h2>
+      <p>Six related plates from Fenmoor's sketchbook toward the finished piece. Click any plate for its notes.</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="art" id="modalArt"></div>
+    <div class="body">
+      <button class="close" id="modalClose" type="button">Close ✕</button>
+      <h3 id="modalTitle"></h3>
+      <div class="meta" id="modalMeta"></div>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ================= NEWS ================= -->
+<section id="news" class="news-section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Coverage</div>
+      <h2>News from the shoreline</h2>
+    </div>
+    <div class="news-grid">
+      <div class="reveal">
+        <div class="news-item">
+          <div class="date">This Week</div>
+          <h3>"The Hour the Lanterns Bloom" opens to the public</h3>
+          <p>Talia Fenmoor's newest interactive piece went live this week, inviting visitors to individually wake each of its twelve lanterns. Early viewers report spending far longer with the work than expected — several returning after dark specifically to bloom the field a second time.</p>
+        </div>
+        <div class="news-item">
+          <div class="date">Tideglass Quarterly</div>
+          <h3>What is the Tideglass School, really?</h3>
+          <p>A explainer on the loosely organized movement Fenmoor is associated with: artists building slow, generative pieces around water, glass, and lamplight, united less by a manifesto than by a shared hour of the day — dusk, and the first lamps of a coastal town.</p>
+        </div>
+        <div class="news-item">
+          <div class="date">Studio Notes</div>
+          <h3>Fenmoor on sound design: "one tone per lantern"</h3>
+          <p>In a short studio note, Fenmoor describes tuning each lantern's chime individually so the field, once fully bloomed, plays a complete — if unpredictable — melody, different every time depending on the order visitors choose.</p>
+        </div>
+        <div class="news-item">
+          <div class="date">Upcoming</div>
+          <h3>A companion piece is in progress</h3>
+          <p>Fenmoor has hinted at a second work continuing the series, reportedly set at low tide rather than dusk. No release date has been confirmed.</p>
+        </div>
+      </div>
+      <div class="news-side reveal">
+        <h4>Around the Movement</h4>
+        <ul>
+          <li><span class="tick">✧</span>Tideglass School group show announced for early autumn</li>
+          <li><span class="tick">✧</span>Three new artists join the Tideglass roster this season</li>
+          <li><span class="tick">✧</span>Archive of Fenmoor's early sketchbooks now viewable by request</li>
+          <li><span class="tick">✧</span>Interview: "Why we build art that waits for you"</li>
+          <li><span class="tick">✧</span>Reader poll: which lantern do you bloom first?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================= ADVERTISEMENTS ================= -->
+<section class="ads-section">
+  <div class="wrap">
+    <span class="ads-label">Sponsored</span>
+    <div class="ads-grid">
+      <div class="ad blue">
+        <span class="adtag">Ad</span>
+        <svg class="adicon" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke-width="1.6"/><path d="M20 10v20M10 20h20" stroke-width="1.6"/></svg>
+        <h4>Harborlight Glassworks</h4>
+        <p>Hand-blown lantern glass and coastal tools, shipped from a small studio on the north shore. Trusted by generative artists for warm, imperfect light.</p>
+        <a class="adlink" href="#">Visit the studio →</a>
+      </div>
+      <div class="ad yellow">
+        <span class="adtag">Ad</span>
+        <svg class="adicon" viewBox="0 0 40 40" fill="none"><rect x="7" y="9" width="26" height="22" rx="2" stroke-width="1.6"/><path d="M7 15h26M14 22h6" stroke-width="1.6"/></svg>
+        <h4>Tideglass School: Group Show Tickets</h4>
+        <p>Early access passes for the autumn Tideglass School exhibition, featuring Fenmoor and eleven other artists working in generative coastal light.</p>
+        <a class="adlink" href="#">Reserve a pass →</a>
+      </div>
+      <div class="ad green">
+        <span class="adtag">Ad</span>
+        <svg class="adicon" viewBox="0 0 40 40" fill="none"><path d="M20 6l4 8 9 1-6.5 6.3L28 30l-8-4.5L12 30l1.5-8.7L7 15l9-1z" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <h4>Dusklamp — Web Audio Toolkit</h4>
+        <p>The procedural chime library behind this piece's soundscape. Build single-tone, generative audio for interactive artwork with no sample files.</p>
+        <a class="adlink" href="#">See the toolkit →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ================= VISIT / CTA ================= -->
+<section class="visit-section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Return at Dusk</div>
+      <h2>Bring someone the lanterns haven't met yet</h2>
+      <p>The piece never blooms itself. Share it, and let someone else's hand finish tonight's field.</p>
+      <div class="visit-actions">
+        <a href="#field" class="btn solid">Back to the lanterns</a>
+        <a href="#gallery" class="btn">See the gallery</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">The Hour the Lanterns Bloom — Talia Fenmoor</div>
+      <div class="foot-links">
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#news">News</a>
+        <a href="#field">Light the Lanterns</a>
+      </div>
+    </div>
+    <div class="easypagex-wrap">
+      <a class="easypagex-btn" href="https://easypagex.github.io" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#04101f" stroke-width="2"><path d="M5 12l5 5L19 7"/></svg>
+        Built with EasyPageX
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Web Audio: soft bell tones, one per lantern ---------- */
+  let audioCtx = null;
+  function getCtx(){
+    if(!audioCtx){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(AC) audioCtx = new AC();
+    }
+    return audioCtx;
+  }
+  function chime(freq){
+    const ctx = getCtx();
+    if(!ctx) return;
+    if(ctx.state === 'suspended') ctx.resume();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc2.type = 'sine';
+    osc.frequency.value = freq;
+    osc2.frequency.value = freq * 2.01;
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.16, now + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+    osc.connect(gain); osc2.connect(gain); gain.connect(ctx.destination);
+    osc.start(now); osc2.start(now);
+    osc.stop(now + 1.9); osc2.stop(now + 1.9);
+  }
+
+  /* ---------- Bloom Field ---------- */
+  // pentatonic-ish scale across the field so any bloom order sounds pleasant
+  const notes = [261.6,293.7,329.6,392.0,440.0,523.3,587.3,659.3,784.0,880.0,1046.5,1174.7];
+  const colors = ['blue','yellow','green'];
+  const colorHex = {blue:'#2F8CFF', yellow:'#FFD23F', green:'#2EE6A6'};
+  const glowFill = {blue:'url(#glowBlue)', yellow:'url(#glowYellow)', green:'url(#glowGreen)'};
+
+  const lanternsGroup = document.getElementById('lanternsGroup');
+  const reflGroup = document.getElementById('reflections');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const positions = [];
+  const cols = 12;
+  for(let i=0;i<cols;i++){
+    const x = 55 + i * ((1100-110)/(cols-1));
+    const y = 130 + (i % 3 === 1 ? -22 : (i % 3 === 2 ? 18 : 0));
+    positions.push({x,y});
+  }
+
+  const lanternState = new Array(12).fill(false);
+  let bloomedCount = 0;
+
+  function buildLantern(i, pos, color){
+    const g = document.createElementNS(svgNS,'g');
+    g.setAttribute('class','lantern');
+    g.setAttribute('data-i', i);
+    g.setAttribute('data-color', color);
+    g.setAttribute('tabindex','0');
+    g.setAttribute('role','button');
+    g.setAttribute('aria-pressed','false');
+    g.setAttribute('aria-label','Lantern ' + (i+1) + ', dormant. Activate to bloom it.');
+    g.setAttribute('transform', 'translate(' + pos.x + ',' + pos.y + ')');
+
+    // thread
+    const thread = document.createElementNS(svgNS,'line');
+    thread.setAttribute('x1','0'); thread.setAttribute('y1','-70');
+    thread.setAttribute('x2','0'); thread.setAttribute('y2','-14');
+    thread.setAttribute('stroke','rgba(234,242,255,0.25)');
+    thread.setAttribute('stroke-width','1');
+    g.appendChild(thread);
+
+    // glow halo
+    const glow = document.createElementNS(svgNS,'circle');
+    glow.setAttribute('class','glow');
+    glow.setAttribute('r','46');
+    glow.setAttribute('fill', glowFill[color]);
+    g.appendChild(glow);
+
+    // lantern body: faceted hexagon
+    const body = document.createElementNS(svgNS,'polygon');
+    body.setAttribute('class','body');
+    body.setAttribute('points','0,-22 15,-11 15,11 0,22 -15,11 -15,-11');
+    body.setAttribute('fill', 'rgba(234,242,255,0.08)');
+    body.setAttribute('stroke','rgba(234,242,255,0.5)');
+    body.setAttribute('stroke-width','1.1');
+    g.appendChild(body);
+
+    // inner core
+    const core = document.createElementNS(svgNS,'circle');
+    core.setAttribute('class','core');
+    core.setAttribute('r','6');
+    core.setAttribute('fill', colorHex[color]);
+    core.setAttribute('opacity','0.35');
+    g.appendChild(core);
+
+    // cap
+    const cap = document.createElementNS(svgNS,'polygon');
+    cap.setAttribute('points','-6,-22 6,-22 0,-30');
+    cap.setAttribute('fill','rgba(234,242,255,0.35)');
+    g.appendChild(cap);
+
+    function bloom(){
+      if(lanternState[i]) { fade(); return; }
+      lanternState[i] = true;
+      bloomedCount++;
+      g.classList.add('bloomed');
+      g.style.color = colorHex[color];
+      g.setAttribute('aria-pressed','true');
+      g.setAttribute('aria-label','Lantern ' + (i+1) + ', bloomed.');
+      core.setAttribute('opacity','1');
+      body.setAttribute('fill', 'rgba(234,242,255,0.16)');
+      chime(notes[i]);
+      spawnMotes(pos, colorHex[color]);
+      updateHud();
+    }
+    function fade(){
+      lanternState[i] = false;
+      bloomedCount = Math.max(0, bloomedCount-1);
+      g.classList.remove('bloomed');
+      g.setAttribute('aria-pressed','false');
+      g.setAttribute('aria-label','Lantern ' + (i+1) + ', dormant. Activate to bloom it.');
+      core.setAttribute('opacity','0.35');
+      body.setAttribute('fill', 'rgba(234,242,255,0.08)');
+      updateHud();
+    }
+    g.addEventListener('click', bloom);
+    g.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); bloom(); }
+    });
+    g._bloom = bloom;
+    g._fade = fade;
+    return g;
+  }
+
+  function spawnMotes(pos, color){
+    for(let m=0;m<5;m++){
+      const dot = document.createElementNS(svgNS,'circle');
+      const dx = (Math.random()-0.5)*40;
+      dot.setAttribute('cx', pos.x + dx);
+      dot.setAttribute('cy', pos.y);
+      dot.setAttribute('r', 1.6 + Math.random()*1.6);
+      dot.setAttribute('fill', color);
+      dot.setAttribute('opacity','0.85');
+      lanternsGroup.parentNode.appendChild(dot);
+      const dur = 1600 + Math.random()*900;
+      const rise = 60 + Math.random()*50;
+      const start = performance.now();
+      function step(t){
+        const p = Math.min(1, (t-start)/dur);
+        dot.setAttribute('cy', pos.y - rise*p);
+        dot.setAttribute('opacity', String(0.85*(1-p)));
+        if(p<1) requestAnimationFrame(step); else dot.remove();
+      }
+      requestAnimationFrame(step);
+    }
+  }
+
+  const lanternEls = [];
+  positions.forEach((pos,i)=>{
+    const color = colors[i % colors.length];
+    const el = buildLantern(i,pos,color);
+    lanternsGroup.appendChild(el);
+    lanternEls.push(el);
+
+    // reflection ghost
+    const rGlow = document.createElementNS(svgNS,'circle');
+    rGlow.setAttribute('cx', pos.x); rGlow.setAttribute('cy', 724-pos.y-724+pos.y);
+    reflGroup.appendChild(document.createElementNS(svgNS,'g'));
+  });
+
+  function updateHud(){
+    document.getElementById('bloomCount').textContent = String(bloomedCount);
+    const msg = document.getElementById('fieldMsg');
+    if(bloomedCount === 12){
+      msg.textContent = '✧ Every lantern has caught the light.';
+    } else {
+      msg.textContent = '';
+    }
+  }
+
+  document.getElementById('lightAllBtn').addEventListener('click', function(){
+    lanternEls.forEach((el, idx)=>{
+      setTimeout(()=>{ if(!lanternState[idx]) el._bloom(); }, idx*120);
+    });
+  });
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    lanternEls.forEach((el, idx)=>{ if(lanternState[idx]) el._fade(); });
+  });
+
+  /* ---------- Gallery: generated SVG plates ---------- */
+  const plates = [
+    {title:'First Lantern, Unlit', medium:'Generative SVG study', year:'2026', color:'#2F8CFF',
+     desc:'The earliest sketch toward the piece — a single dormant lantern, drawn before Fenmoor had decided the field should respond to touch.'},
+    {title:'Low Tide, Facet Study', medium:'Procedural glass render', year:'2026', color:'#2EE6A6',
+     desc:'A study of how faceted glass should catch a single light source. This water pattern was later reused for the finished piece\'s shallows.'},
+    {title:'The Second Bloom', medium:'Web Audio + SVG', year:'2026', color:'#FFD23F',
+     desc:'An early prototype testing whether a second lantern could bloom in a different color from the first without the field feeling chaotic.'},
+    {title:'Reflection, Inverted', medium:'Generative SVG study', year:'2026', color:'#2F8CFF',
+     desc:'A study of the mirrored lantern beneath the waterline — ultimately simplified for the final piece to keep the water calm.'},
+    {title:'Full Field, Night Test', medium:'Full interactive test', year:'2026', color:'#2EE6A6',
+     desc:'The first complete test of all twelve lanterns blooming together, used to tune the chime scale so any order still sounds musical.'},
+    {title:'Dusk Palette, Final', medium:'Color study', year:'2026', color:'#FFD23F',
+     desc:'The palette study that fixed the finished piece\'s three lantern colors — bright blue, yellow, and green — against deep tideglass night.'}
+  ];
+
+  function platePolygon(color){
+    return '<svg class="art" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">'+
+      '<rect width="400" height="300" fill="#0a1730"/>'+
+      '<rect y="220" width="400" height="80" fill="#081226"/>'+
+      '<circle cx="200" cy="120" r="70" fill="'+color+'" opacity="0.12"/>'+
+      '<polygon points="200,85 226,102 226,138 200,155 174,138 174,102" fill="rgba(234,242,255,0.08)" stroke="'+color+'" stroke-width="1.4"/>'+
+      '<circle cx="200" cy="120" r="7" fill="'+color+'"/>'+
+      '<line x1="200" y1="60" x2="200" y2="85" stroke="rgba(234,242,255,0.3)"/>'+
+      '<path d="M0,225 Q100,215 200,225 T400,225" fill="none" stroke="'+color+'" stroke-opacity="0.35" stroke-width="1.5"/>'+
+      '</svg>';
+  }
+
+  const galleryGrid = document.getElementById('galleryGrid');
+  plates.forEach((p, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'plate reveal';
+    card.innerHTML = platePolygon(p.color) +
+      '<div class="cap"><div class="no">Plate 0'+(idx+1)+'</div><h3>'+p.title+'</h3>'+
+      '<div class="meta">'+p.medium+' · '+p.year+'</div></div>';
+    card.addEventListener('click', ()=> openModal(p));
+    galleryGrid.appendChild(card);
+  });
+
+  const modalBg = document.getElementById('modalBg');
+  function openModal(p){
+    document.getElementById('modalArt').innerHTML = platePolygon(p.color);
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalMeta').textContent = p.medium + ' · ' + p.year;
+    document.getElementById('modalDesc').textContent = p.desc;
+    modalBg.classList.add('open');
+  }
+  document.getElementById('modalClose').addEventListener('click', ()=> modalBg.classList.remove('open'));
+  modalBg.addEventListener('click', (e)=>{ if(e.target === modalBg) modalBg.classList.remove('open'); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') modalBg.classList.remove('open'); });
+
+  /* ---------- Scroll reveal ---------- */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal, .plate').forEach(el=> io.observe(el));
+
+})();
+</script>
+</body>
+</html>
