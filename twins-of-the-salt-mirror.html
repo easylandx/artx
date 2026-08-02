@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Twins of the Salt Mirror — Marisol Quintane</title>
+<meta name="description" content="Twins of the Salt Mirror, a digital art piece by Marisol Quintane. Ember Atlas Surrealist movement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,650;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky: #A9D6E8;
+    --sky-deep: #6FAFCB;
+    --ember: #E2703A;
+    --ember-deep: #B8501F;
+    --beige: #ECE1CC;
+    --beige-deep: #D9C9A8;
+    --ink: #2A2118;
+    --paper: #FAF5EA;
+    --accent: var(--ember);
+    --accent-deep: var(--ember-deep);
+    --bg-tint: var(--sky);
+    --mode-label: "Atlas";
+    --dur: 0.6s;
+  }
+  html[data-mode="ember"]{
+    --accent: var(--sky);
+    --accent-deep: var(--sky-deep);
+    --bg-tint: var(--ember);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+    transition:background var(--dur) ease;
+  }
+  h1,h2,h3, .display{
+    font-family:'Fraunces', serif;
+    font-weight:650;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(250,245,234,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(42,33,24,0.12);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1180px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand svg{width:30px; height:30px;}
+  .brand-text{font-family:'Fraunces', serif; font-weight:650; font-size:1.05rem;}
+  .brand-text .sub{display:block; font-family:'IBM Plex Mono',monospace; font-weight:400; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); opacity:0.55;}
+  nav.links{display:flex; gap:22px; font-size:0.86rem;}
+  nav.links a{text-decoration:none; opacity:0.75; transition:opacity 0.2s;}
+  nav.links a:hover{opacity:1;}
+  #modeToggle{
+    display:flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--paper);
+    border:none; border-radius:999px; padding:9px 16px;
+    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase;
+    cursor:pointer;
+  }
+  #modeToggle:hover{background:var(--accent-deep);}
+  #modeToggle .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:72px 28px 40px;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(169,214,232,0.55), transparent 55%),
+      radial-gradient(circle at 82% 78%, rgba(226,112,58,0.28), transparent 50%),
+      var(--paper);
+    overflow:hidden;
+  }
+  .hero-inner{max-width:1180px; margin:0 auto; display:grid; grid-template-columns: 1.1fr 1fr; gap:20px; align-items:center;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--ember-deep); margin-bottom:18px; display:flex; gap:10px; align-items:center;}
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--ember-deep);}
+  .hero h1{font-size:clamp(2.6rem, 5.4vw, 4.6rem); line-height:0.98;}
+  .hero h1 em{font-style:italic; color:var(--ember-deep); font-weight:500;}
+  .hero p.lede{font-size:1.08rem; line-height:1.6; max-width:44ch; margin:22px 0 26px; opacity:0.85;}
+  .byline{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; letter-spacing:0.04em;}
+  .byline b{font-family:'Work Sans',sans-serif; font-weight:600;}
+  .hint{margin-top:26px; font-size:0.78rem; opacity:0.55; font-style:italic;}
+
+  .mirror-stage{
+    position:relative; aspect-ratio: 1/1.05; cursor:pointer;
+    border-radius:14px;
+    background:linear-gradient(160deg, var(--sky) 0%, var(--beige) 55%, var(--beige-deep) 100%);
+    box-shadow: 0 30px 70px -30px rgba(42,33,24,0.4);
+    display:flex; align-items:center; justify-content:center;
+    user-select:none;
+  }
+  .mirror-stage svg{width:86%; height:86%;}
+  .crack-caption{
+    position:absolute; bottom:16px; left:16px; right:16px;
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; letter-spacing:0.05em;
+    color:var(--ink); background:rgba(250,245,234,0.85); padding:8px 12px; border-radius:8px;
+    opacity:0; transform:translateY(8px); transition:all 0.4s ease; pointer-events:none;
+  }
+  .mirror-stage.cracked .crack-caption{opacity:1; transform:translateY(0);}
+
+  /* ---------- SECTIONS GENERIC ---------- */
+  section{padding:88px 0;}
+  .section-head{max-width:640px; margin-bottom:46px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.9rem, 3.4vw, 2.6rem);}
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- STATEMENT ---------- */
+  .statement{background:var(--beige);}
+  .statement-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:52px; align-items:start;}
+  .statement blockquote{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size:1.5rem; line-height:1.42; color:var(--ink); margin:0 0 20px;
+    border-left:3px solid var(--ember-deep); padding-left:22px;
+  }
+  .statement p{line-height:1.75; opacity:0.85; font-size:0.98rem;}
+  .fact-list{list-style:none; margin:0; padding:0; display:grid; gap:14px;}
+  .fact-list li{
+    display:grid; grid-template-columns:110px 1fr; gap:14px; font-size:0.88rem;
+    padding-bottom:14px; border-bottom:1px solid rgba(42,33,24,0.14);
+  }
+  .fact-list .k{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.08em; font-size:0.68rem; opacity:0.6; padding-top:2px;}
+
+  /* ---------- MOVEMENT ---------- */
+  .movement{background:var(--paper); position:relative;}
+  .movement-panel{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border:1px solid rgba(42,33,24,0.16); border-radius:16px; overflow:hidden;
+  }
+  .movement-panel .cell{
+    padding:34px 28px; border-right:1px solid rgba(42,33,24,0.12);
+    transition:background 0.3s ease;
+  }
+  .movement-panel .cell:last-child{border-right:none;}
+  .movement-panel .cell:hover{background:rgba(226,112,58,0.08);}
+  .movement-panel .num{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--ember-deep); margin-bottom:14px; display:block;}
+  .movement-panel h3{font-size:1.15rem; margin-bottom:10px;}
+  .movement-panel p{font-size:0.9rem; line-height:1.6; opacity:0.8; margin:0;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--ink); color:var(--paper);}
+  .gallery .section-head .eyebrow{color:var(--sky);}
+  .gallery .section-head .eyebrow::before{background:var(--sky);}
+  .gallery .section-head p{color:var(--paper); opacity:0.65;}
+  .grid-gallery{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
+  }
+  .tile{
+    position:relative; border-radius:12px; overflow:hidden; aspect-ratio:1/1;
+    cursor:pointer; border:1px solid rgba(250,245,234,0.12);
+    transition:transform 0.35s ease;
+  }
+  .tile:hover{transform:translateY(-6px);}
+  .tile svg{width:100%; height:100%; display:block;}
+  .tile-cap{
+    position:absolute; left:0; right:0; bottom:0; padding:12px 14px;
+    background:linear-gradient(0deg, rgba(0,0,0,0.55), transparent);
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; letter-spacing:0.04em;
+  }
+
+  /* modal */
+  #modal{
+    position:fixed; inset:0; background:rgba(20,15,10,0.85); z-index:100;
+    display:none; align-items:center; justify-content:center; padding:30px;
+  }
+  #modal.open{display:flex;}
+  #modal .modal-box{
+    background:var(--paper); color:var(--ink); border-radius:16px; max-width:640px; width:100%;
+    padding:26px; position:relative;
+  }
+  #modal svg{width:100%; aspect-ratio:1/1; border-radius:10px; background:var(--beige);}
+  #modal .modal-title{margin-top:18px; font-size:1.2rem;}
+  #modal .modal-note{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; opacity:0.65; margin-top:8px;}
+  #modal .close-btn{
+    position:absolute; top:14px; right:14px; width:32px; height:32px; border-radius:50%;
+    border:1px solid rgba(42,33,24,0.2); background:transparent; cursor:pointer; font-size:1rem;
+  }
+
+  /* ---------- NEWS ---------- */
+  .news{background:var(--sky);}
+  .news-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+  .news-card{
+    background:var(--paper); border-radius:14px; padding:26px; display:flex; flex-direction:column; gap:12px;
+    border:1px solid rgba(42,33,24,0.1);
+  }
+  .news-card .date{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-deep);}
+  .news-card h3{font-size:1.08rem; line-height:1.3;}
+  .news-card p{font-size:0.87rem; line-height:1.55; opacity:0.78; margin:0;}
+  .news-card .tag{
+    align-self:flex-start; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; text-transform:uppercase;
+    letter-spacing:0.08em; padding:4px 10px; border-radius:999px; background:var(--beige); opacity:0.8;
+  }
+
+  /* ---------- ADVERTS ---------- */
+  .ads{background:var(--beige);}
+  .ads .section-head p{opacity:0.6; font-size:0.85rem;}
+  .ad-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:18px;}
+  .ad{
+    border:1px dashed rgba(42,33,24,0.35); border-radius:12px; padding:24px;
+    display:flex; flex-direction:column; justify-content:space-between; gap:16px;
+    background:var(--paper); position:relative; min-height:150px;
+  }
+  .ad .sponsored{
+    position:absolute; top:10px; right:12px; font-family:'IBM Plex Mono',monospace; font-size:0.58rem;
+    text-transform:uppercase; letter-spacing:0.1em; opacity:0.45;
+  }
+  .ad h4{font-family:'Fraunces',serif; font-weight:650; font-size:1.15rem; margin:0 0 6px;}
+  .ad p{font-size:0.84rem; opacity:0.75; line-height:1.5; margin:0;}
+  .ad .cta{
+    font-family:'IBM Plex Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--ember-deep); text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  }
+  .ad.wide{grid-column:span 1;}
+  .ad-badge{width:44px; height:44px; border-radius:10px; background:var(--sky); display:flex; align-items:center; justify-content:center;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:var(--paper); padding:60px 0 34px;}
+  .footer-top{display:flex; justify-content:space-between; align-items:flex-start; gap:30px; flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid rgba(250,245,234,0.14);}
+  .footer-brand{max-width:340px;}
+  .footer-brand p{font-size:0.85rem; opacity:0.6; line-height:1.6; margin-top:12px;}
+  .footer-cols{display:flex; gap:60px;}
+  .footer-col h5{font-family:'IBM Plex Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.12em; opacity:0.55; margin-bottom:14px;}
+  .footer-col a{display:block; font-size:0.86rem; opacity:0.8; text-decoration:none; margin-bottom:10px;}
+  .footer-col a:hover{opacity:1;}
+  .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:26px; flex-wrap:wrap; gap:18px;}
+  .footer-bottom .rights{font-size:0.76rem; opacity:0.5; font-family:'IBM Plex Mono',monospace;}
+
+  .easypagex-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:linear-gradient(120deg, var(--ember) 0%, var(--sky) 100%);
+    color:#20160f; font-family:'IBM Plex Mono',monospace; font-weight:500;
+    font-size:0.78rem; letter-spacing:0.04em; text-decoration:none;
+    padding:12px 20px; border-radius:999px; text-transform:uppercase;
+    box-shadow:0 8px 24px -8px rgba(226,112,58,0.6);
+    transition:transform 0.2s ease;
+  }
+  .easypagex-btn:hover{transform:translateY(-2px);}
+  .easypagex-btn svg{width:16px; height:16px;}
+
+  /* floating mode pill (mobile convenience) */
+  .float-mode{
+    position:fixed; bottom:22px; right:22px; z-index:50;
+    display:none;
+  }
+  @media (max-width: 880px){
+    .hero-inner{grid-template-columns:1fr;}
+    .statement-grid{grid-template-columns:1fr;}
+    .movement-panel{grid-template-columns:1fr;}
+    .movement-panel .cell{border-right:none; border-bottom:1px solid rgba(42,33,24,0.12);}
+    .grid-gallery{grid-template-columns:repeat(2,1fr);}
+    .news-grid{grid-template-columns:1fr;}
+    .ad-grid{grid-template-columns:1fr;}
+    nav.links{display:none;}
+  }
+</style>
+</head>
+<body data-mode="atlas">
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none">
+        <rect x="2" y="2" width="36" height="36" rx="8" fill="var(--beige)" stroke="var(--ink)" stroke-opacity="0.2"/>
+        <path d="M20 6 L20 34" stroke="var(--ember-deep)" stroke-width="1.4"/>
+        <circle cx="13" cy="20" r="6.4" fill="var(--sky)"/>
+        <circle cx="27" cy="20" r="6.4" fill="var(--ember)"/>
+      </svg>
+      <div class="brand-text">Twins of the Salt Mirror<span class="sub">Marisol Quintane · Digital Art</span></div>
+    </div>
+    <nav class="links">
+      <a href="#statement">Statement</a>
+      <a href="#movement">Movement</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#news">Dispatches</a>
+      <a href="#ads">Partners</a>
+    </nav>
+    <button id="modeToggle" aria-label="Toggle color mode">
+      <span class="dot"></span><span id="modeLabel">Atlas Mode</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Ember Atlas Surrealist · Digital Piece No. 07</div>
+      <h1>Twins <em>of</em> the<br>Salt Mirror</h1>
+      <p class="lede">Two figures stand where a dry lakebed used to hold water. Each learned its posture from the other, and neither remembers which one moved first. Click the mirror — it doesn't like to stay still.</p>
+      <p class="byline"><b>Marisol Quintane</b> — b. 1988, works between Antofagasta &amp; Reykjavík</p>
+      <p class="hint">Move your cursor across the mirror. Click it to hear it crack.</p>
+    </div>
+    <div class="mirror-stage" id="mirrorStage" role="button" tabindex="0" aria-label="Interactive salt mirror artwork, click to crack it">
+      <svg id="mirrorSvg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--sky)"/>
+            <stop offset="100%" stop-color="var(--beige)"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="400" height="420" fill="url(#skyFade)"/>
+        <!-- salt flat lines -->
+        <g stroke="var(--ink)" stroke-opacity="0.12" stroke-width="1">
+          <line x1="0" y1="340" x2="400" y2="340"/>
+          <line x1="0" y1="360" x2="400" y2="352"/>
+          <line x1="0" y1="380" x2="400" y2="368"/>
+          <line x1="0" y1="400" x2="400" y2="386"/>
+        </g>
+        <!-- mirror seam -->
+        <line id="seam" x1="200" y1="40" x2="200" y2="360" stroke="var(--ember-deep)" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.6"/>
+        <!-- twin left (crystalline figure) -->
+        <g id="twinLeft">
+          <polygon points="160,340 145,230 160,150 185,110 200,150 190,230 195,340" fill="var(--beige-deep)" stroke="var(--ink)" stroke-width="1" stroke-opacity="0.35"/>
+          <polygon points="185,110 200,80 215,110 200,150" fill="var(--sky)" stroke="var(--ink)" stroke-opacity="0.3"/>
+          <circle cx="200" cy="95" r="16" fill="var(--paper)" stroke="var(--ink)" stroke-opacity="0.3"/>
+        </g>
+        <!-- twin right (mirrored, offset by JS for parallax) -->
+        <g id="twinRight">
+          <polygon points="240,340 255,230 240,150 215,110 200,150 210,230 205,340" fill="var(--ember)" stroke="var(--ink)" stroke-width="1" stroke-opacity="0.25"/>
+          <polygon points="215,110 200,80 185,110 200,150" fill="var(--ember-deep)" stroke="var(--ink)" stroke-opacity="0.3" opacity="0.9"/>
+          <circle cx="200" cy="95" r="16" fill="var(--paper)" stroke="var(--ink)" stroke-opacity="0.3"/>
+        </g>
+        <!-- crack overlay, hidden until clicked -->
+        <g id="crackLines" opacity="0">
+          <path d="M200 40 L188 130 L210 190 L180 260 L200 340" stroke="var(--ink)" stroke-width="1.6" fill="none"/>
+          <path d="M188 130 L150 160" stroke="var(--ink)" stroke-width="1" fill="none"/>
+          <path d="M210 190 L250 210" stroke="var(--ink)" stroke-width="1" fill="none"/>
+        </g>
+      </svg>
+      <div class="crack-caption">"the crack always follows the same path — that's how you know it's a memory, not an accident." — M. Quintane</div>
+    </div>
+  </div>
+</section>
+
+<section class="statement" id="statement">
+  <div class="wrap reveal">
+    <div class="statement-grid">
+      <div>
+        <blockquote>"I didn't paint two figures. I paint the pause between them — the half-second where the reflection decides whether to obey."</blockquote>
+        <p>Quintane began the Salt Mirror series after a season photographing the Salar de Uyuni at dawn, where the flooded flats turn the horizon into a doubled world. <em>Twins of the Salt Mirror</em> takes that optical accident and gives it a will of its own: a mirror that occasionally refuses.</p>
+      </div>
+      <ul class="fact-list">
+        <li><span class="k">Medium</span><span>Generative SVG, procedural Web Audio, real-time interaction</span></li>
+        <li><span class="k">Year</span><span>2026</span></li>
+        <li><span class="k">Edition</span><span>Open edition, single canonical build</span></li>
+        <li><span class="k">Movement</span><span>Ember Atlas Surrealist</span></li>
+        <li><span class="k">Palette</span><span>Baby blue, ember orange, salt beige</span></li>
+        <li><span class="k">Duration</span><span>Indefinite — the piece does not loop, it waits</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="movement" id="movement">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Movement</div>
+      <h2>What "Ember Atlas Surrealist" means</h2>
+    </div>
+    <div class="movement-panel reveal">
+      <div class="cell">
+        <span class="num">01 — Atlas</span>
+        <h3>Cartography of the impossible</h3>
+        <p>Works in this movement are built like maps of places that don't survive daylight — coordinates for a mirage, borders drawn around a memory rather than a territory.</p>
+      </div>
+      <div class="cell">
+        <span class="num">02 — Ember</span>
+        <h3>Heat as color logic</h3>
+        <p>Cool tones dominate until something catches: a single ember-orange element per piece marks the point where the dream is still burning, the last thing still awake.</p>
+      </div>
+      <div class="cell">
+        <span class="num">03 — Surrealist</span>
+        <h3>Logic that answers to the viewer</h3>
+        <p>Interaction replaces the dream-logic of classical Surrealism — the piece behaves strangely only because you touched it, not because the artist scripted a story.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Gallery</div>
+      <h2>Studies for the Salt Mirror</h2>
+      <p>Six generative studies Quintane produced while developing the final piece. Click any tile to view it full size.</p>
+    </div>
+    <div class="grid-gallery" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div id="modal">
+  <div class="modal-box">
+    <button class="close-btn" id="closeModal">✕</button>
+    <div id="modalSvgWrap"></div>
+    <h3 class="modal-title" id="modalTitle"></h3>
+    <p class="modal-note" id="modalNote"></p>
+  </div>
+</div>
+
+<section class="news" id="news">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Dispatches</div>
+      <h2>News from the salt flats</h2>
+    </div>
+    <div class="news-grid reveal">
+      <article class="news-card">
+        <span class="tag">Exhibition</span>
+        <span class="date">March 2026</span>
+        <h3>"Twins of the Salt Mirror" opens at Galería Atacama Norte</h3>
+        <p>Quintane's first solo showing of the Ember Atlas Surrealist series drew a sold-out opening night, with the interactive mirror piece anchoring the main hall.</p>
+      </article>
+      <article class="news-card">
+        <span class="tag">Interview</span>
+        <span class="date">April 2026</span>
+        <h3>Quintane on why the mirror is allowed to refuse</h3>
+        <p>"A mirror that always obeys is furniture," Quintane told Atlas Review. "I wanted one that sometimes decides the reflection isn't ready yet."</p>
+      </article>
+      <article class="news-card">
+        <span class="tag">Press</span>
+        <span class="date">May 2026</span>
+        <h3>Critics call the piece "a duet nobody rehearsed"</h3>
+        <p>Reviewers noted the asymmetry between the twin figures as the work's emotional core — two shapes that are almost, but never quite, the same gesture.</p>
+      </article>
+      <article class="news-card">
+        <span class="tag">Upcoming</span>
+        <span class="date">September 2026</span>
+        <h3>Traveling showcase announced for Reykjavík and Lisbon</h3>
+        <p>The Salt Mirror series will travel this autumn, paired with new field recordings Quintane made at three salt flats across two continents.</p>
+      </article>
+      <article class="news-card">
+        <span class="tag">Collector's Note</span>
+        <span class="date">June 2026</span>
+        <h3>Open edition prints of the Studies now available</h3>
+        <p>Numbered prints of the six preparatory studies shown in the gallery above are being released in a limited run through the artist's studio.</p>
+      </article>
+      <article class="news-card">
+        <span class="tag">Community</span>
+        <span class="date">July 2026</span>
+        <h3>Viewers report the crack pattern feels "personal"</h3>
+        <p>Because the crack always follows the same geometry, several visitors described the moment of clicking the mirror as strangely intimate rather than destructive.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ads" id="ads">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Partners &amp; Sponsors</div>
+      <h2>Supporting the exhibition</h2>
+      <p>This page is supported by the following studio partners.</p>
+    </div>
+    <div class="ad-grid reveal">
+      <div class="ad wide">
+        <span class="sponsored">Sponsored</span>
+        <div>
+          <div class="ad-badge">
+            <svg viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="3" fill="var(--ember-deep)"/></svg>
+          </div>
+          <h4>Atacama Norte Framing Co.</h4>
+          <p>Museum-grade framing for large-format digital prints, custom-fitted for salt-toned and desert palettes. Trusted by three galleries on this tour.</p>
+        </div>
+        <a class="cta" href="#" onclick="return false;">Request a quote →</a>
+      </div>
+      <div class="ad">
+        <span class="sponsored">Sponsored</span>
+        <div>
+          <div class="ad-badge">
+            <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="9" fill="var(--sky-deep)"/></svg>
+          </div>
+          <h4>Quintane Studio Print Shop</h4>
+          <p>Numbered prints of the Salt Mirror studies, shipped worldwide.</p>
+        </div>
+        <a class="cta" href="#" onclick="return false;">Browse prints →</a>
+      </div>
+      <div class="ad">
+        <span class="sponsored">Sponsored</span>
+        <div>
+          <div class="ad-badge">
+            <svg viewBox="0 0 24 24" width="22" height="22"><polygon points="12,3 21,20 3,20" fill="var(--ember)"/></svg>
+          </div>
+          <h4>Ember &amp; Beige Gallery Supply</h4>
+          <p>Archival mounting board and UV-safe acrylic in every shade of this exhibition's palette.</p>
+        </div>
+        <a class="cta" href="#" onclick="return false;">See catalog →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3 style="color:var(--paper); font-size:1.3rem;">Twins of the Salt Mirror</h3>
+        <p>A digital art piece by Marisol Quintane, part of the Ember Atlas Surrealist series. Built as an interactive single-page exhibit.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <a href="#statement">Artist statement</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#news">Dispatches</a>
+        </div>
+        <div class="footer-col">
+          <h5>Studio</h5>
+          <a href="#ads">Partners</a>
+          <a href="#" onclick="return false;">Press kit</a>
+          <a href="#" onclick="return false;">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="rights">© 2026 Marisol Quintane. Twins of the Salt Mirror — Ember Atlas Surrealist.</span>
+      <a class="easypagex-btn" href="https://easypagex.github.io" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 16 L12 4 L20 16 L12 12 Z" fill="#20160f"/></svg>
+        Built with EasyPageX
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------- Mode toggle + chime ----------
+  const html = document.documentElement;
+  const btn = document.getElementById('modeToggle');
+  const label = document.getElementById('modeLabel');
+  let audioCtx;
+  function chime(freqA, freqB){
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      const now = audioCtx.currentTime;
+      [freqA, freqB].forEach((f, i)=>{
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, now + i*0.06);
+        gain.gain.setValueAtTime(0, now + i*0.06);
+        gain.gain.linearRampToValueAtTime(0.12, now + i*0.06 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + i*0.06 + 0.9);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now + i*0.06);
+        osc.stop(now + i*0.06 + 0.95);
+      });
+    }catch(e){}
+  }
+  let mode = 'atlas';
+  btn.addEventListener('click', function(){
+    mode = mode === 'atlas' ? 'ember' : 'atlas';
+    html.setAttribute('data-mode', mode);
+    label.textContent = mode === 'atlas' ? 'Atlas Mode' : 'Ember Mode';
+    chime(mode === 'atlas' ? 660 : 440, mode === 'atlas' ? 990 : 330);
+  });
+
+  // ---------- Hero mirror parallax + crack ----------
+  const stage = document.getElementById('mirrorStage');
+  const twinLeft = document.getElementById('twinLeft');
+  const twinRight = document.getElementById('twinRight');
+  const seam = document.getElementById('seam');
+  const crackLines = document.getElementById('crackLines');
+  let cracked = false;
+
+  stage.addEventListener('mousemove', function(e){
+    if(cracked) return;
+    const rect = stage.getBoundingClientRect();
+    const x = (e.clientX - rect.left)/rect.width - 0.5;
+    const y = (e.clientY - rect.top)/rect.height - 0.5;
+    twinLeft.setAttribute('transform', 'translate(' + (x*10) + ',' + (y*6) + ')');
+    twinRight.setAttribute('transform', 'translate(' + (-x*14) + ',' + (-y*8) + ')');
+    seam.setAttribute('transform', 'translate(' + (x*3) + ',0)');
+  });
+  stage.addEventListener('mouseleave', function(){
+    if(cracked) return;
+    twinLeft.setAttribute('transform', 'translate(0,0)');
+    twinRight.setAttribute('transform', 'translate(0,0)');
+    seam.setAttribute('transform', 'translate(0,0)');
+  });
+
+  function toggleCrack(){
+    cracked = !cracked;
+    stage.classList.toggle('cracked', cracked);
+    crackLines.setAttribute('opacity', cracked ? '0.8' : '0');
+    twinRight.style.transition = 'transform 0.5s ease';
+    twinRight.setAttribute('transform', cracked ? 'translate(6,4)' : 'translate(0,0)');
+    chime(cracked ? 220 : 523, cracked ? 233 : 659);
+  }
+  stage.addEventListener('click', toggleCrack);
+  stage.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleCrack(); }
+  });
+
+  // ---------- Gallery: generate 6 SVG studies ----------
+  const studies = [
+    {title:'Study I — First Seam', note:'Graphite pass exploring where the mirror line should sit.', colors:['var(--sky)','var(--beige-deep)']},
+    {title:'Study II — Ember Catch', note:'Testing how much orange the composition could hold before losing balance.', colors:['var(--ember)','var(--beige)']},
+    {title:'Study III — Low Water', note:'Reference sketch from the Salar de Uyuni field trip, dawn light.', colors:['var(--sky-deep)','var(--ember-deep)']},
+    {title:'Study IV — Twin Offset', note:'Working out the parallax lag between the two figures.', colors:['var(--beige)','var(--sky)']},
+    {title:'Study V — Crack Geometry', note:'Mapping the exact path the crack takes across the seam.', colors:['var(--ink)','var(--ember)']},
+    {title:'Study VI — Final Palette', note:'Locking baby blue, ember orange, and salt beige as the closing palette.', colors:['var(--ember)','var(--sky)','var(--beige)']}
+  ];
+
+  function makeStudySvg(seed, colors){
+    const c1 = colors[0], c2 = colors[1] || colors[0], c3 = colors[2] || colors[0];
+    let facets = '';
+    let rnd = seed * 9301 % 233280;
+    function rand(){ rnd = (rnd * 9301 + 49297) % 233280; return rnd / 233280; }
+    for(let i=0;i<7;i++){
+      const cx = 20 + rand()*160, cy = 20 + rand()*160, r = 18 + rand()*36;
+      const rot = Math.floor(rand()*60);
+      const fill = i % 2 === 0 ? c1 : (i % 3 === 0 ? c3 : c2);
+      facets += '<polygon points="' +
+        (cx) + ',' + (cy-r) + ' ' +
+        (cx+r*0.86) + ',' + (cy-r*0.4) + ' ' +
+        (cx+r*0.5) + ',' + (cy+r*0.9) + ' ' +
+        (cx-r*0.5) + ',' + (cy+r*0.9) + ' ' +
+        (cx-r*0.86) + ',' + (cy-r*0.4) +
+        '" fill="' + fill + '" opacity="0.85" transform="rotate(' + rot + ' ' + cx + ' ' + cy + ')"/>';
+    }
+    return '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect width="200" height="200" fill="var(--paper)"/>' +
+      '<line x1="100" y1="0" x2="100" y2="200" stroke="var(--ink)" stroke-opacity="0.15" stroke-dasharray="2 5"/>' +
+      facets +
+      '</svg>';
+  }
+
+  const grid = document.getElementById('galleryGrid');
+  studies.forEach(function(s, i){
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.innerHTML = makeStudySvg(i+1, s.colors) + '<div class="tile-cap">' + s.title + '</div>';
+    tile.addEventListener('click', function(){ openModal(s, i); });
+    grid.appendChild(tile);
+  });
+
+  const modal = document.getElementById('modal');
+  const modalSvgWrap = document.getElementById('modalSvgWrap');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalNote = document.getElementById('modalNote');
+  function openModal(s, i){
+    modalSvgWrap.innerHTML = makeStudySvg(i+1, s.colors);
+    modalTitle.textContent = s.title;
+    modalNote.textContent = s.note;
+    modal.classList.add('open');
+  }
+  document.getElementById('closeModal').addEventListener('click', function(){ modal.classList.remove('open'); });
+  modal.addEventListener('click', function(e){ if(e.target === modal) modal.classList.remove('open'); });
+
+  // ---------- Scroll reveal ----------
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
